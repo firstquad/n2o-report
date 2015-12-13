@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="schema_report_delete" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT count(1) FROM information_schema.schemata WHERE schema_name = 'report';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            DROP SCHEMA report CASCADE;
+        </sql>
+    </changeSet>
+
+    <changeSet id="schema_report_create" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT count(1) FROM information_schema.schemata WHERE schema_name = 'report';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            CREATE SCHEMA report;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_group" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_group" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_group (
+            id SERIAL,
+            code VARCHAR,
+            name VARCHAR NOT NULL
+            ) WITHOUT OIDS;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_group_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_group_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_group_id ON report.report_group
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report (
+            id SERIAL,
+            code VARCHAR,
+            name VARCHAR NOT NULL,
+            file_name VARCHAR NOT NULL,
+            note VARCHAR(800),
+            form_id VARCHAR,
+            is_report_module BOOLEAN,
+            is_generated_form BOOLEAN
+            ) WITHOUT OIDS;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_id ON report.report
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_form_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_form_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_form_id ON report.report
+            USING btree (form_id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_to_group" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_to_group" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_to_group (
+            id SERIAL,
+            report_id INTEGER NOT NULL,
+            group_id INTEGER NOT NULL,
+            report_order INTEGER NOT NULL,
+            CONSTRAINT report_to_group_group_id FOREIGN KEY (group_id)
+            REFERENCES report.report_group(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE,
+            CONSTRAINT report_to_group_report_id FOREIGN KEY (report_id)
+            REFERENCES report.report(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE
+            ) WITHOUT OIDS;
+        </sql>
+    </changeSet>
+
+    <changeSet id="fnc_set_report_order_group_for_delete" author="dfirstov">
+        <sql splitStatements="false">
+            <![CDATA[
+                CREATE OR REPLACE FUNCTION report.fnc_set_report_order_group_for_delete (
+                  _report_id integer
+                )
+                RETURNS pg_catalog.void AS
+                $body$
+                DECLARE
+                _i RECORD;
+                BEGIN
+
+                FOR _i IN
+                    SELECT group_id
+                    FROM report.report_to_group
+                    WHERE report_id = _report_id
+                LOOP
+                    UPDATE report.report_to_group SET report_order =
+                        (SELECT COALESCE(max(report_order), 0) + 1 FROM report.report_to_group WHERE group_id = _i.group_id)
+                    WHERE group_id = _i.group_id AND report_id = _report_id;
+
+                    UPDATE report.report_to_group rp SET report_order = up.report_order
+                    FROM
+                    (SELECT id, row_number() OVER (ORDER BY report_order) as report_order
+                        FROM report.report_to_group
+                     WHERE group_id = _i.group_id) up
+                    WHERE rp.id = up.id;
+
+                END LOOP;
+
+                END;
+                $body$
+                LANGUAGE 'plpgsql'
+                VOLATILE
+                CALLED ON NULL INPUT
+                SECURITY INVOKER
+                COST 100;
+            ]]>
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

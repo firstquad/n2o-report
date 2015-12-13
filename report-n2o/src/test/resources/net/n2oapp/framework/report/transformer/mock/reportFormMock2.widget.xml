@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://n2oapp.net/framework/config/schema/n2o-widget-2.0" xmlns:fs="http://n2oapp.net/framework/config/schema/fieldset-2.0">
+    <name>Форма</name>
+    <object-id>reportObjectMock</object-id>
+    <edit model="default" form-submit-label="Сформировать отчёт" after-submit="closeModal">
+        <a href="${rmis.report.url}?__report=30_2014.rptdesign&amp;filial_id=:filial_id|uc:&amp;__format=pdf" />
+    </edit>
+    <fs:field-set xmlns:ctrl="http://n2oapp.net/framework/config/schema/n2o-control-1.0">
+        <ctrl:input-text id="filial_id" label="filial111" visible="true" domain="String" required="false" />
+    </fs:field-set>
+</form>
+

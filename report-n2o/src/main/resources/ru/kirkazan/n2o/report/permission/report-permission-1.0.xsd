@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://atria.cz/sec/config/schema/report-permission-1.0"
+           xmlns:act="http://n2oapp.net/framework/config/schema/action-1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="report-access" type="report-access"/>
+
+    <xs:complexType name="report-access">
+        <xs:attribute name="code" type="xs:string" use="required"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<query xmlns="http://n2oapp.net/framework/config/schema/query-2.0">
+    <name>Место вызова отчета</name>
+    <object-id>reportPlaceForm</object-id>
+    <execution xmlns:n2o="http://n2oapp.net/framework/config/schema/n2o-query-executions-1.0">
+        <n2o:java-criteria bean-name="reportPlaceFormService"
+                           criteria-class="ru.kirkazan.rmis.app.report.n2o.parameters.ReportPlaceFormCriteria">
+
+        </n2o:java-criteria>
+    </execution>
+    <fields>
+        <field>
+            <id>id</id>
+            <domain>integer</domain>
+        </field>
+        <field>
+            <id>name</id>
+            <name>Наименование</name>
+            <domain>string</domain>
+        </field>
+        <field>
+            <id>required</id>
+            <name>Обязательность</name>
+            <domain>boolean</domain>
+        </field>
+        <field>
+            <id>visible</id>
+            <name>Видимость</name>
+            <domain>boolean</domain>
+        </field>
+        <field>
+            <id>place.id</id>
+            <name>Место</name>
+            <domain>integer</domain>
+            <expression>placeId</expression>
+        </field>
+    </fields>
+</query>
+

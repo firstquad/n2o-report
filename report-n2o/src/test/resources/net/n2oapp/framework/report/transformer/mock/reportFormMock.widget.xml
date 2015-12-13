@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://n2oapp.net/framework/config/schema/n2o-widget-2.0" xmlns:fs="http://n2oapp.net/framework/config/schema/fieldset-2.0">
+    <name>Форма</name>
+    <object-id>reportObjectMock</object-id>
+    <edit model="default" form-submit-label="Сформировать отчёт" after-submit="closeModal">
+        <a href="${rmis.report.url}?__report=30_2014.rptdesign&amp;from_dt=:from_dt|uc:&amp;to_dt=:to_dt|uc:&amp;clinic_id=:clinic.id|uc:&amp;part=:part|uc:&amp;department_id=:department.id|uc:&amp;filial=:filial|uc:&amp;__format=pdf" />
+    </edit>
+    <fs:field-set xmlns:ctrl="http://n2oapp.net/framework/config/schema/n2o-control-1.0">
+        <ctrl:date-time id="from_dt" label="От" visible="false" domain="String" required="false" />
+        <ctrl:date-time id="to_dt" label="До" visible="false" domain="String" required="false" />
+        <ctrl:classifier id="clinic" label="ЛПУ" visible="true" domain="String" required="true">
+            <ctrl:query query-id="reportClinics" label-field-id="short_name" value-field-id="id" />
+        </ctrl:classifier>
+        <ctrl:input-text id="part" label="part" visible="true" domain="String" required="true" />
+        <ctrl:classifier id="department" label="Отделение" visible="true" domain="String" required="false">
+            <ctrl:query query-id="reportDepartments" label-field-id="name" value-field-id="id">
+                <ctrl:pre-filters>
+                    <ctrl:pre-filter field-id="org.id" ref="clinic.id" />
+                </ctrl:pre-filters>
+            </ctrl:query>
+        </ctrl:classifier>
+        <ctrl:input-text id="filial" label="filial111" visible="true" domain="String" required="false" />
+    </fs:field-set>
+</form>
+

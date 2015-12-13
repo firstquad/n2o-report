@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<header xmlns="http://n2oapp.net/framework/config/schema/standard-header-1.0">
+
+    <navigation>
+        <module-group id="m1">
+            <module name="Модуль" main-page="testReportToPlaceName1">
+                <space name="Спейс">
+                    <page id="testReportToPlaceName1" name="Место вызова"/>
+                </space>
+            </module>
+        </module-group>
+
+        <module-group id="m2">
+            <module name="Модуль" main-page="testReportToPlaceName2">
+                <page id="testReportToPlaceName2" name="Место вызова"/>
+            </module>
+        </module-group>
+
+    </navigation>
+
+</header>

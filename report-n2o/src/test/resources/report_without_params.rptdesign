@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1"> 
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="1721">            
+            <list-property name="parameters"/>   
+        </oda-data-set>
+    </data-sets>    
+</report>

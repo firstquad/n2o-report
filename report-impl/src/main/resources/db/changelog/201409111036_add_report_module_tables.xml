@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="schema_report" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT count(1) FROM information_schema.schemata WHERE schema_name = 'report';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            CREATE SCHEMA report;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_form_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_form_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_form_id_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_group_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_group_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_group_id_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_place_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_place_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_place_id_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_id_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_to_form_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_to_form_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_to_form_id_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_to_group_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_to_group_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_to_group_id_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_form_to_place_id_seq" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="report_form_to_place_id_seq" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE report.report_form_to_place_id_seq;
+        </sql>
+    </changeSet>
+    
+    <changeSet id="report.report_form" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_form" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_form
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_form_id_seq'),
+            code VARCHAR,
+            name VARCHAR NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_form_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_form_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_form_id ON report.report_form
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_group" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_group" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_group
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_group_id_seq'),
+            code VARCHAR,
+            name VARCHAR NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_group_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_group_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_group_id ON report.report_group
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_place" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_place" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_place
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_place_id_seq'),
+            code VARCHAR,
+            name VARCHAR NOT NULL
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_place_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_place_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_place_id ON report.report_place
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_id_seq'),
+            code VARCHAR,
+            name VARCHAR NOT NULL,
+            file_name VARCHAR NOT NULL,
+            report_group_order INTEGER,
+            is_selected BOOLEAN
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_id ON report.report
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_to_form" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_to_form" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_to_form
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_to_form_id_seq'),
+            report_id INTEGER NOT NULL,
+            form_id INTEGER NOT NULL,
+
+            CONSTRAINT report_to_form_report_id FOREIGN KEY (report_id)
+            REFERENCES report.report(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE,
+            CONSTRAINT report_to_form_form_id FOREIGN KEY (form_id)
+            REFERENCES report.report_form(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.idx_report_to_form_id" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="idx_report_to_form_id" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE UNIQUE INDEX idx_report_to_form_id ON report.report_to_form
+            USING btree (id);
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_to_group" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_to_group" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_to_group
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_to_group_id_seq'),
+            report_id INTEGER NOT NULL,
+            group_id INTEGER NOT NULL,
+            report_order INTEGER NOT NULL,
+
+            CONSTRAINT report_to_group_report_id FOREIGN KEY (report_id)
+            REFERENCES report.report(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE,
+            CONSTRAINT report_to_group_group_id FOREIGN KEY (group_id)
+            REFERENCES report.report_group(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="report.report_form_to_place" author="dfirstov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="report_form_to_place" schemaName="report"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE report.report_form_to_place
+            (
+            id INTEGER NOT NULL DEFAULT nextval('report.report_form_to_place_id_seq'),
+            place_id INTEGER,
+            report_id INTEGER NOT NULL,
+            form_id INTEGER NOT NULL,
+            report_order INTEGER NOT NULL,
+            CONSTRAINT report_form_to_place_report_id FOREIGN KEY (report_id)
+            REFERENCES report.report(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE,
+            CONSTRAINT report_form_to_place_form_id FOREIGN KEY (form_id)
+            REFERENCES report.report_form(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE,
+            CONSTRAINT report_form_to_place_place_id FOREIGN KEY (place_id)
+            REFERENCES report.report_place(id)
+            ON DELETE CASCADE
+            ON UPDATE NO ACTION
+            NOT DEFERRABLE
+            );
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>

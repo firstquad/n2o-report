@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment id="report" version="3.0" metadata-complete="true" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd">
+
+    <servlet>
+        <servlet-name>reportServlet</servlet-name>
+        <servlet-class>ru.kirkazan.rmis.app.report.n2o.servlet.ReportServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>reportServlet</servlet-name>
+        <url-pattern>/report</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>singleSignOutFilter</filter-name>
+        <url-pattern>/report/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/report/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>singleSignOutFilter</filter-name>
+        <url-pattern>/base/j_spring_cas_security_check/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/base/j_spring_cas_security_check/*</url-pattern>
+    </filter-mapping>
+
+</web-fragment>

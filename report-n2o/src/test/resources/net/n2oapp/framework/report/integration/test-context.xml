@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <bean class="net.n2oapp.framework.report.integration.TestEngine"/>
+
+    <bean id = "reportN2oService" class="ru.kirkazan.rmis.app.report.n2o.report.ReportN2oService">
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportDAO" ref="reportDAOTest"/>
+    </bean>
+
+    <bean id = "reportDAOTest" class="net.n2oapp.framework.report.integration.TestReportDAOImpl"/>
+
+    <bean class="net.n2oapp.context.StaticSpringContext"/>
+
+    <bean id="n2oProperties"
+          class="net.n2oapp.framework.report.integration.TestN2oProperties">
+        <property name="birtHost" value="report"/>
+        <property name="formLocation" value="/report/form"/>
+    </bean>
+
+
+</beans>

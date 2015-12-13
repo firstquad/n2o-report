@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <import resource="classpath:ru/kirkazan/rmis/app/report/n2o/impl/report-impl-context.xml"/>
+
+    <context:component-scan base-package="ru.kirkazan.rmis.app.report.n2o.backend.service"/>
+
+    <import resource="classpath:/ru/kirkazan/common/jax/jax-rs-context.xml"/>
+
+    <jaxrs:server id="report" address="/reporting">
+        <jaxrs:serviceBeans>
+            <bean class="ru.kirkazan.rmis.app.report.n2o.rest.ReportRest"/>
+            <bean class="ru.kirkazan.rmis.app.report.n2o.rest.ReportSignatureRest"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jacksonJsonProviderMain"/>
+            <ref bean="restExceptionMapper"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <tx:annotation-driven/>
+
+</beans>
+

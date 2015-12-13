@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id = "reportPlaceToCallLocationCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.placeToCallLocation.ReportPlaceToCallLocationCriteriaService"/>
+
+    <bean id = "reportPlaceCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.place.ReportPlaceCriteriaService">
+        <property name="properties" ref="n2oProperties"/>
+    </bean>
+
+    <bean id="reportJDBCTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="routingDataSource" />
+    </bean>
+
+    <bean id="reportPlaceValidation" class="ru.kirkazan.rmis.app.report.n2o.validation.ReportPlaceValidation">
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "reportFileService" class="ru.kirkazan.rmis.app.report.n2o.file.ReportFileService">
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportDAO" ref="reportDAO"/>
+        <property name="reportN2oService" ref="reportN2oService"/>
+    </bean>
+
+    <bean id = "reportCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.report.criteria.report.ReportCriteriaService">
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "reportToGroupCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.report.criteria.reportToGroup.ReportToGroupCriteriaService">
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "reportOutGroupCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.report.criteria.reportOutGroup.ReportOutGroupCriteriaService">
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "reportPackageCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.report.criteria.reportPackage.ReportPackageCriteriaService">
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportN2oService" ref="reportN2oService"/>
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "containerToPlaceCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.containerToPlace.ContainerToPlaceCriteriaService"/>
+
+    <bean id="reportFormService" class="ru.kirkazan.rmis.app.report.n2o.form.ReportFormService"/>
+
+    <bean id = "reportN2oService" class="ru.kirkazan.rmis.app.report.n2o.report.ReportN2oService">
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportDAO" ref="reportDAO"/>
+        <property name="formService" ref="reportFormService"/>
+    </bean>
+
+    <bean id = "reportDAO" class="ru.kirkazan.rmis.app.report.n2o.impl.service.ReportDAOImpl">
+        <property name="jdbcTemplate" ref="reportJDBCTemplate"/>
+    </bean>
+
+    <bean id = "reportPlaceService" class="ru.kirkazan.rmis.app.report.n2o.place.ReportPlaceService">
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "placeSortCriteria" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.reportOnPlace.ReportOnPlaceCriteriaService">
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "reportFormCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.form.criteria.form.ReportFormCriteriaService">
+        <property name="reportDAO" ref="reportDAO"/>
+        <property name="reportN2oService" ref="reportN2oService"/>
+    </bean>
+
+    <bean id = "reportFormFieldPropService" class="ru.kirkazan.rmis.app.report.n2o.form.criteria.fieldProp.ReportFormFieldPropService">
+        <property name="properties" ref="n2oProperties"/>
+    </bean>
+
+    <bean id = "reportFormFieldCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.form.criteria.fieldToRef.ReportFormFieldCriteriaService">
+        <property name="reportN2oService" ref="reportN2oService"/>
+    </bean>
+
+    <bean id = "reportFormFieldPropCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.form.criteria.fieldProp.ReportFormFieldPropCriteriaService">
+    </bean>
+
+    <bean id = "reportAccess" class="ru.kirkazan.rmis.app.report.n2o.sec.ReportAccessImpl">
+        <property name="accessEngine" ref="accessEngine"/>
+    </bean>
+
+    <bean id = "reportMenuTransformer" class="ru.kirkazan.rmis.app.report.n2o.transformer.ReportMenuTransformer">
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportDAO" ref="reportDAO"/>
+        <property name="reportAccess" ref="reportAccess"/>
+    </bean>
+
+    <bean id = "reportWidgetPlaceTransformer" class="ru.kirkazan.rmis.app.report.n2o.transformer.ReportWidgetPlaceTransformer">
+        <property name="reportDAO" ref="reportDAO"/>
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportAccess" ref="reportAccess"/>
+    </bean>
+
+
+    <bean id = "placeToReportCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.placeToReport.PlaceToReportCriteriaService">
+        <property name="reportN2oService" ref="reportN2oService"/>
+    </bean>
+
+    <bean id = "reportNameOnPlaceCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.placeToReport.ReportNameOnPlaceCriteriaService">
+        <property name="placeToReportCriteriaService" ref="placeToReportCriteriaService"/>
+    </bean>
+
+    <bean id = "fieldToContainerCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.place.criteria.fieldToContainer.FieldToContainerCriteriaService"/>
+
+    <bean id="configRegisterUtil" class="ru.kirkazan.rmis.app.report.n2o.util.ConfigRegisterUtil"/>
+
+    <bean class="ru.kirkazan.rmis.app.report.n2o.place.config.N2oReportPlaceReaderV1"/>
+
+    <bean class="ru.kirkazan.rmis.app.report.n2o.place.config.N2oReportPlacePersister"/>
+
+    <bean class="ru.kirkazan.rmis.app.report.n2o.sec.ReportAccessPointReader"/>
+
+    <bean class="ru.kirkazan.rmis.app.report.n2o.sec.ReportAccessPointPersister"/>
+
+    <bean id="reportFormN2oService" class="ru.kirkazan.rmis.app.report.n2o.form.ReportFormN2oService">
+        <property name="fileCriteriaService" ref="reportFileService"/>
+        <property name="properties" ref="n2oProperties"/>
+        <property name="reportDAO" ref="reportDAO"/>
+    </bean>
+
+    <bean id = "reportFieldTypeCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.form.criteria.fieldType.ReportFieldTypeCriteriaService"/>
+
+    <bean id = "reportClassifierCriteriaService" class="ru.kirkazan.rmis.app.report.n2o.form.criteria.classifier.ReportClassifierCriteriaService"/>
+
+</beans>

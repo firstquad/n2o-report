@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create_report_signature_table" author="rsadikov" dbms="postgresql">
+        <sql>
+            CREATE SEQUENCE report.report_signature_id_seq;
+
+            CREATE TABLE report.report_signature (
+                id                   integer  NOT NULL,
+                report_id            integer  NOT NULL,
+                employee_position_id integer  NOT NULL,
+                sign_dt              timestamp DEFAULT current_timestamp NOT NULL,
+                report_file_name     varchar(250)  NOT NULL,
+                sign_file_name       varchar(250)  ,
+                CONSTRAINT report_signature_id_pk PRIMARY KEY ( id )
+            );
+
+            CREATE INDEX report_signature_employee_position_id_ix ON report.report_signature ( employee_position_id );
+
+            COMMENT ON TABLE report.report_signature IS 'Подпись отчета';
+
+            COMMENT ON COLUMN report.report_signature.id IS 'Идентификатор';
+
+            COMMENT ON COLUMN report.report_signature.report_id IS 'Отчет';
+
+            COMMENT ON COLUMN report.report_signature.employee_position_id IS 'Служащий, подписавший отчет';
+
+            COMMENT ON COLUMN report.report_signature.sign_dt IS 'Дата подписи';
+
+            COMMENT ON COLUMN report.report_signature.report_file_name IS 'Файл сформированного отчета';
+
+            COMMENT ON COLUMN report.report_signature.sign_file_name IS 'Файл подписи';
+        </sql>
+    </changeSet>
+
+    <changeSet id="create_report_signature_constraint_1" author="rsadikov" dbms="postgresql">
+        <sql>
+            ALTER TABLE report.report_signature ADD CONSTRAINT report_signature_employee_position_id_fk FOREIGN KEY ( employee_position_id ) REFERENCES pim_employee_position( id ) ON DELETE RESTRICT ON UPDATE RESTRICT;
+        </sql>
+    </changeSet>
+
+    <changeSet id="create_report_signature_constraint_2" author="rsadikov" dbms="postgresql">
+        <sql>
+            ALTER TABLE report.report_signature ADD CONSTRAINT report_signature_report_id_fk FOREIGN KEY ( report_id ) REFERENCES report.report( id ) ON DELETE CASCADE ON UPDATE CASCADE;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,9 @@
+<element xmlns="http://atria.cz/sec/config/schema/element-1.0"
+         xmlns:n2o="http://atria.cz/sec/config/schema/n2o-permission-1.0"
+         name="Тест" id="testReportAccess">
+
+    <permission id="read" name="Просмотр" group-id="read">
+        <n2o:report-access code="report_file_name"/>
+    </permission>
+
+</element>

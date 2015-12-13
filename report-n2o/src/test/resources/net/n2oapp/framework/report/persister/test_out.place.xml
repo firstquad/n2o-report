@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<place xmlns="http://n2oapp.net/framework/config/schema/report-n2o-place-1.0">
+    <reports>
+        <report-form form-id="testForm"/>
+    </reports>
+    <containers>
+        <container id="c1" report-menu-item-id="testMenuItem">
+            <reports>
+                <report-form form-id="testForm" format="pdf">
+                    <params>
+                        <param form-field-id="testFeildId" ref="testRef" />
+                    </params>
+                </report-form>
+            </reports>
+        </container>
+    </containers>
+</place>
+

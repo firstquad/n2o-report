@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<place xmlns="http://n2oapp.net/framework/config/schema/report-n2o-place-1.0">
+    <reports>
+        <report-form form-id="sdsd"/>
+        <report-form form-id="sdsd2"/>
+        <report-url code="025-10yT-13_blank"/>
+    </reports>
+    <containers>
+        <container id="c1" report-menu-item-id="reports">
+            <reports>
+                <report-form form-id="sdsd" format="pdf" label="Test Label" key="f2">
+                    <conditions>
+                        <enabling-condition>
+                            <expression>expression</expression>
+                            <tooltip>tooltip</tooltip>
+                        </enabling-condition>
+                    </conditions>
+                    <params>
+                        <param form-field-id="clinic.id" ref="org.id"/>
+                        <param form-field-id="patient.id" ref="customer.id"/>
+                    </params>
+                </report-form>
+                <report-url code="11" label="22" format="xml">
+                    <params>
+                        <param name="33" ref="44"/>
+                    </params>
+                </report-url>
+                <report-url code="1-MZ" format="pdf" key="f2">
+                    <conditions>
+                        <enabling-condition>
+                            <expression>expression</expression>
+                            <tooltip>tooltip</tooltip>
+                        </enabling-condition>
+                    </conditions>
+                </report-url>
+                <report-url code="1-MZ" format="pdf"/>
+            </reports>
+        </container>
+        <container id="c2" report-menu-item-id = "reports">
+            <reports>
+                <report-form form-id="sdsd2" format="pdf">
+                    <conditions>
+                        <visibility-condition>
+                            <expression>expression</expression>
+                        </visibility-condition>
+                    </conditions>
+                    <params>
+                        <param form-field-id="clinic.id" ref="org.id"/>
+                        <param form-field-id="patient.id" ref="customer.id"/>
+                    </params>
+                </report-form>
+                <report-url code="2-MZ" format="pdf" label="Test Label">
+                    <conditions>
+                        <visibility-condition>
+                            <expression>expression</expression>
+                        </visibility-condition>
+                    </conditions>
+                </report-url>
+                <report-url code="2-MZ" format="pdf"/>
+            </reports>
+        </container>
+    </containers>
+</place>

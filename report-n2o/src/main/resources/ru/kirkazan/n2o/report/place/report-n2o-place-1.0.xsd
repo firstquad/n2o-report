@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://n2oapp.net/framework/config/schema/report-n2o-place-1.0">
+
+    <xs:element name="place" type="placeType"/>
+
+    <xs:complexType name="placeType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="page-id" minOccurs="1"/>
+            <xs:element name="reports" minOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="report-form">
+                            <xs:complexType>
+                                <xs:attribute name="form-id" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="report-url">
+                            <xs:complexType>
+                                <xs:attribute name="code" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="containers" minOccurs="1" type="containersType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="containersType">
+        <xs:sequence>
+            <xs:element name="container" maxOccurs="unbounded" minOccurs="1" type="containerType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="containerType">
+        <xs:sequence>
+            <xs:element name="reports" minOccurs="1" type="reportsType"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="id" use="required"/>
+        <xs:attribute type="xs:string" name="report-menu-item-id" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="reportsType">
+        <xs:sequence>
+            <xs:element name="report-form" type="reportFormType"/>
+            <xs:element name="report-url" type="reportUrlType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="reportUrlType">
+        <xs:sequence>
+            <xs:element name="params" type="paramsUrlType" minOccurs="0"/>
+            <xs:element name="conditions" type="conditionsType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="code" use="required" type="xs:string"/>
+        <xs:attribute name="label" type="xs:string" use="optional"/>
+        <xs:attribute name="format" use="optional" type="formatType"/>
+        <xs:attribute name="key" use="optional" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="reportFormType">
+        <xs:sequence>
+            <xs:element name="params" type="paramsFormType"/>
+            <xs:element name="conditions" type="conditionsType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="form-id" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:string" use="optional"/>
+        <xs:attribute name="show_form" type="xs:boolean" use="optional"/>
+        <xs:attribute name="format" use="optional" type="formatType"/>
+        <xs:attribute name="key" use="optional" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="paramsFormType">
+        <xs:sequence>
+            <xs:element name="param" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                    <xs:attribute name="form-field-id" use="required" type="xs:string"/>
+                    <xs:attribute name="ref" use="required" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="paramsUrlType">
+        <xs:sequence>
+            <xs:element name="param" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                    <xs:attribute name="name" use="required" type="xs:string"/>
+                    <xs:attribute name="ref" use="required" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="conditionsType">
+            <xs:sequence>
+                <xs:element name="enabling-condition" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="expression" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:attribute name="on" type="xs:string" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="tooltip" minOccurs="1" maxOccurs="1"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="visibility-condition" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="expression" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:attribute name="on" type="xs:string" use="optional"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="formatType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="pdf"/>
+            <xs:enumeration value="doc"/>
+            <xs:enumeration value="xml"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
+
+
+

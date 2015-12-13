@@ -1,0 +1,15 @@
+<beans:beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/security 
+                    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <http pattern="/report/**" auto-config="true" use-expressions="true" entry-point-ref="baseCasEntryPoint">
+        <intercept-url pattern="/report/**" access="isAuthenticated()"/>
+        <custom-filter position="CAS_FILTER" ref="baseCasFilter"/>
+        <anonymous enabled="false"/>
+    </http>
+
+</beans:beans>

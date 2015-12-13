@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<place xmlns="http://n2oapp.net/framework/config/schema/report-n2o-place-1.0">
+    <containers>
+        <container id="c1">
+            <reports>
+                <report-url code="Clinics_integrated_with_FER.rptdesign" key="f2"/>
+                <report-form form-id="reportFormMock" key="f2"/>
+            </reports>
+        </container>
+        <container id="c2">
+            <reports>
+                <report-url code="Clinics_integrated_with_FER.rptdesign">
+                    <params>
+                        <param name="from_date" ref="from_dt"/>
+                    </params>
+                </report-url>
+                <report-form form-id="reportFormMock"/>
+            </reports>
+        </container>
+        <container id="c3">
+            <reports>
+                <report-url code="Clinics_integrated_with_FER.rptdesign"/>
+                <report-form form-id="reportFormMock"/>
+            </reports>
+        </container>
+        <container id="c4">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <params>
+                        <param form-field-id="filial" ref="1"/>
+                        <param form-field-id="department.id" ref="1"/>
+                    </params>
+                </report-form>
+            </reports>
+        </container>
+        <container id="c5">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <params>
+                        <param form-field-id="from_dt" ref="1"/>
+                        <param form-field-id="to_dt" ref="1"/>
+                        <param form-field-id="clinic.id" ref="1"/>
+                        <param form-field-id="part" ref="1"/>
+                        <param form-field-id="filial" ref="1"/>
+                        <param form-field-id="department.id" ref="1"/>
+                    </params>
+                </report-form>
+            </reports>
+        </container>
+        <container id="c6">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <params>
+                        <param form-field-id="clinic.id" ref="1"/>
+                        <param form-field-id="part" ref="1"/>
+                        <param form-field-id="filial" ref="1"/>
+                        <param form-field-id="department.id" ref="1"/>
+                    </params>
+                </report-form>
+            </reports>
+        </container>
+        <container id="c7">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <params>
+                        <param form-field-id="clinic.id" ref="1"/>
+                        <param form-field-id="part" ref="1"/>
+                        <param form-field-id="filial" ref="1"/>
+                        <param form-field-id="department.id" ref="1"/>
+                    </params>
+                </report-form>
+            </reports>
+        </container>
+        <container id="c8">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <params>
+                        <param form-field-id="clinic.id" ref="1"/>
+                        <param form-field-id="part" ref="1"/>
+                        <param form-field-id="filial" ref="1"/>
+                        <param form-field-id="department.id" ref="1"/>
+                    </params>
+                </report-form>
+            </reports>
+        </container>
+        <container id="c9">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <conditions>
+                        <enabling-condition>
+                            <expression>false</expression>
+                            <tooltip>disabled</tooltip>
+                        </enabling-condition>
+                    </conditions>
+                </report-form>
+                <report-url code="Clinics_integrated_with_FER.rptdesign">
+                    <conditions>
+                        <enabling-condition>
+                            <expression>false</expression>
+                            <tooltip>disabled</tooltip>
+                        </enabling-condition>
+                    </conditions>
+                </report-url>
+            </reports>
+        </container>
+        <container id="c10">
+            <reports>
+                <report-form form-id="reportFormMock">
+                    <conditions>
+                       <visibility-condition>
+                           <expression>false</expression>
+                       </visibility-condition>
+                    </conditions>
+                </report-form>
+                <report-url code="Clinics_integrated_with_FER.rptdesign">
+                    <conditions>
+                        <visibility-condition>
+                            <expression>false</expression>
+                        </visibility-condition>
+                    </conditions>
+                </report-url>
+            </reports>
+        </container>
+    </containers>
+</place>
+

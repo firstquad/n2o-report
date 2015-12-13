@@ -1,0 +1,7 @@
+<module xmlns="http://n2oapp.net/framework/config/schema/standard-header-module-1.0"
+        main-page="reportTransformTest1" name="Отчеты">
+
+    <page id="reportTransformTest1" name="Отчеты"/>
+    <page id="reportTransformTest2" name="Отчеты"/>
+
+</module>
